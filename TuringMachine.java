@@ -90,6 +90,7 @@ public class TuringMachine {
       int numBlanksOnTape = 0;
       int numAttempts = 0;
       String rejectReason = "invalid word";
+      boolean validTransitionFound = false;
       
       while(running) {
          if (numBlanksOnTape > 0) {
@@ -100,11 +101,12 @@ public class TuringMachine {
          }
          stateSearch = true;
          while(stateSearch == true) {
-         
+            validTransitionFound = false;
             for (int transitionNum = 0; transitionNum < fileLineCount; transitionNum++) {
                
                if (currentState.equals(tMachine[transitionNum][0]) == true) {
                   if (tapeHead == tMachine[transitionNum][1].charAt(0) == true)  {
+                     validTransitionFound = true;
                      tapeWord[tapePos] = tMachine[transitionNum][2].charAt(0);
                      stateSearch = false;
                      if ((tMachine[transitionNum][3].charAt(0) == 'r') || (tMachine[transitionNum][3].charAt(0) == 'R') ) {
@@ -147,23 +149,27 @@ public class TuringMachine {
                }
             }
             
-            //what if we can't find an appropriate transition?
+            
          }
          
          if ((currentState.contains("Halt")) || ((currentState.contains("HALT")))) {
                running = false;
                accepted = true;
          }
-        
+        if (validTransitionFound = false) {
+            running = false;
+            accepted = false;
+            rejectReason = "invalid word; no transition found for current state and tape character.";
+        }
       }
       
       
       //end of running loop 
       if (accepted == false) {
-         System.out.println(testWord + " rejected. Reason: " + rejectReason);
+         System.out.println("Rejected: " + testWord);
       }
       else {
-         System.out.println(testWord + " accepted!");
+         System.out.println("Accepted: " + testWord);
       }
    }
 }
