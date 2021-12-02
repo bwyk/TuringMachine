@@ -138,13 +138,13 @@ public class TuringMachine {
                   }
                }
                numAttempts++;
-               System.out.println("Attempts: " + numAttempts);
+               
                if (numAttempts > 500) {
                   //WORD: REJECTED
                   running = false;
                   accepted = false;
                   stateSearch = false;
-                  rejectReason = "invalid word through infinite transition loop";
+                  rejectReason = "invalid word through egregious transition count: " + numAttempts;
                   break;
                }
             }
@@ -167,6 +167,7 @@ public class TuringMachine {
       //end of running loop 
       if (accepted == false) {
          System.out.println("Rejected: " + testWord);
+         System.out.println("Reason: " + rejectReason);
       }
       else {
          System.out.println("Accepted: " + testWord);
