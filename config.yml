@@ -2,7 +2,7 @@
 ---
 # language: the choices are (uncomment exactly one)
 #   java, swift, script or c#
-#language: java
+language: java
 #language: swift
 #language: script
 #language: c#
